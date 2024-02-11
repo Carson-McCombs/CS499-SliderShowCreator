@@ -1,0 +1,86 @@
+﻿<Window x:Class="_499_P09_SlideShowCreator.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_499_P09_SlideShowCreator"
+        mc:Ignorable="d"
+        Title="Window1" Height="450" Width="800">
+    <Window.Resources>
+        <Style x:Key="VisibleOnHover" TargetType="Button">
+            <Setter Property="Opacity" Value="0"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" Value="1"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="BorderOnHover" TargetType="Button">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderThickness" Value="3"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="EmptyButton" TargetType="Button">
+            <Setter Property="Background" Value="#FF686868"/>
+            <Setter Property="Foreground" Value="{x:Null}"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="MinWidth" Value="80" />
+        </Style>
+    </Window.Resources>
+    
+    <Grid x:Name="PreviewOutline" Background="#FFFFC9C9" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MinWidth="150" Width="150*"/>
+            <ColumnDefinition MinWidth="150" Width="150*"/>
+            <ColumnDefinition MinWidth="150" Width="150*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition MinHeight="180" Height="170*"/>
+            <RowDefinition MinHeight="60" Height="60*"/>
+            <RowDefinition MinHeight="80" Height="70*"/>
+        </Grid.RowDefinitions>
+        <!--Image x:Name="SlideVisual" Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="3" Source="{Binding Path=CurrentSlide}" Stretch="Uniform" Margin="20,20,20,20"/-->
+        <local:SlideVisual x:Name="SlideVisuals" Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="3" Margin="20,20,20,20"/>
+
+        <Button x:Name="PreviewUI" Style="{StaticResource VisibleOnHover}" Background="#FF686868" Panel.ZIndex="1" Grid.Column="1" Grid.Row="1" BorderBrush="{x:Null}" Foreground="{x:Null}">
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition MinWidth="10" Width="10*"/>
+                    <ColumnDefinition MinWidth="50" Width="50*"/>
+                    <ColumnDefinition MinWidth="20" Width="20*"/>
+                    <ColumnDefinition MinWidth="50" Width="50*"/>
+                    <ColumnDefinition MinWidth="10" Width="10*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition MinHeight="10" Height="10*"/>
+                    <RowDefinition MinHeight="40" Height="30*"/>
+                    <RowDefinition MinHeight="10" Height="10*"/>
+                    <RowDefinition MinHeight="10" Height="10*"/>
+                </Grid.RowDefinitions>
+
+                <Button x:Name="PreviousSlideButton" Style="{StaticResource BorderOnHover}" Grid.Column="1" Grid.Row="1" BorderBrush="Black" Click="PreviousSlide">
+                    <Image Source="rightArrow.png" RenderTransformOrigin="0.5,0.5" OpacityMask="Black">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                </Button>
+                <Button x:Name="NextSlideButton" Style="{StaticResource BorderOnHover}" Grid.Column="3" Grid.Row="1" BorderBrush="Black" Click="NextSlide">
+                    <Image Source="rightArrow.png"/>
+                </Button>
+                <TextBlock x:Name="AudioFileName" Text="{Binding CurrentAudioName}" Foreground="Black" Grid.Column="1" Grid.Row="2"/>
+
+                <TextBlock x:Name="AudioFileTime" Text="{Binding CurrentAudioTime}" Foreground="Black" Grid.Column="3" Grid.Row="2"/>
+            </Grid>
+        </Button>
+    </Grid>
+</Window>

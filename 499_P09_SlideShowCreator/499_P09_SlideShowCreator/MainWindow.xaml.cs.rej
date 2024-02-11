@@ -1,0 +1,50 @@
+diff a/499_P09_SlideShowCreator/499_P09_SlideShowCreator/MainWindow.xaml.cs b/499_P09_SlideShowCreator/499_P09_SlideShowCreator/MainWindow.xaml.cs	(rejected hunks)
+@@ -76,35 +76,48 @@
+ 
+         private void RaisePropertyChanged(string propertyName)
+         {
+             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+         }
+ 
+         private void Button_Click(object sender, RoutedEventArgs e)
+         {
+             OpenFileDialog openFileDialog = new OpenFileDialog();
+             openFileDialog.Multiselect = true;
+             if (openFileDialog.ShowDialog().Value)
+             {
+                 foreach (string name in openFileDialog.FileNames)
+                 {
+                     Images.Add(name);
+                 }
+             }
+         }
+ 
+         private void Button_Click_1(object sender, RoutedEventArgs e)
+         {
+             Thread t = new Thread(runSlideShow);
+             t.Start();
+         }
+ 
++        private void Button_Click_2(object sender, RoutedEventArgs e)
++        {
++            SlideShow slideShow = new SlideShow();
++            slideShow.Images = Images;
++        }
++
++        private void Button_Click_3(object sender, RoutedEventArgs e)
++        {
++            Window1 win1 = new Window1(Images);
++            //win1.Images = Images;
++            win1.Show();
++        }
++
+         private void runSlideShow()
+         {
+             for (int i = 0; i < Images.Count; i++)
+             {
+                 CurrentImage = Images[i];
+                 Thread.Sleep(1000);
+             }
+         }
+     }
+ }
